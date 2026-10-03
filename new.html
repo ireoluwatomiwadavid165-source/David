@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEX PROGRAMMER</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#020706;
+    color:#fff;
+    min-height:100vh;
+}
+
+/* HACKER BACKGROUND */
+body::before{
+    content:"</> 010101 CODE JAVASCRIPT PYTHON HTML CSS SQL { }";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    color:#00ff88;
+    opacity:.035;
+    font-family:monospace;
+    font-size:30px;
+    line-height:2;
+    word-spacing:35px;
+    overflow:hidden;
+}
+
+/* LOADER */
+#loader{
+    position:fixed;
+    inset:0;
+    background:#010403;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.loader-logo{
+    width:100px;
+    height:100px;
+    border:3px solid #00ff88;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#00ff88;
+    font-size:30px;
+    box-shadow:0 0 35px #00ff88;
+}
+
+.loader-title{
+    margin-top:20px;
+    color:#00ff88;
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.loader-bar{
+    width:280px;
+    height:6px;
+    background:#10231b;
+    margin-top:20px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.loader-progress{
+    height:100%;
+    width:0%;
+    background:#00ff88;
+}
+
+/* LOGIN */
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:450px;
+    background:#06100d;
+    border:1px solid #19412f;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 0 40px rgba(0,255,136,.1);
+}
+
+.logo{
+    color:#00ff88;
+    font-size:25px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
+}
+
+.input{
+    margin-bottom:15px;
+}
+
+.input label{
+    display:block;
+    color:#aaa;
+    margin-bottom:7px;
+}
+
+.input input,
+.input textarea,
+.input select{
+    width:100%;
+    background:#020806;
+    color:#fff;
+    border:1px solid #19382b;
+    padding:13px;
+    border-radius:8px;
+    outline:none;
+}
+
+.input input:focus,
+.input textarea:focus{
+    border-color:#00ff88;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.btn{
+    border:none;
+    padding:12px 18px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.green-btn{
+    background:#00ff88;
+    color:#00150b;
+}
+
+.red-btn{
+    background:#ff4141;
+    color:white;
+}
+
+.dark-btn{
+    background:#10251b;
+    color:#00ff88;
+    border:1px solid #1d4a35;
+}
+
+.full{
+    width:100%;
+}
+
+.link-btn{
+    display:block;
+    width:100%;
+    margin-top:15px;
+    background:none;
+    border:none;
+    color:#00ff88;
+    cursor:pointer;
+}
+
+.error{
+    color:#ff5555;
+    text-align:center;
+    margin-top:15px;
+}
+
+.success{
+    color:#00ff88;
+    text-align:center;
+    margin-top:15px;
+}
+
+/* NAV */
+nav{
+    background:rgba(2,8,6,.95);
+    border-bottom:1px solid #153a29;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.nav-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.nav-logo{
+    color:#00ff88;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.nav-buttons{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* PAGES */
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:45px 0;
+}
+
+.heading{
+    margin-bottom:30px;
+}
+
+.heading h1{
+    font-size:40px;
+}
+
+.heading span{
+    color:#00ff88;
+}
+
+.heading p{
+    color:#777;
+    margin-top:10px;
+}
+
+/* DASHBOARD CARDS */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:25px;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.clickable{
+    cursor:pointer;
+}
+
+.clickable:hover{
+    transform:translateY(-7px);
+    border-color:#00ff88;
+    box-shadow:0 0 30px rgba(0,255,136,.12);
+}
+
+.icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#888;
+    line-height:1.6;
+}
+
+.card-link{
+    color:#00ff88;
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+/* COURSES */
+.course-card{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:25px;
+    border-radius:15px;
+}
+
+.course-icon{
+    width:55px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,255,136,.1);
+    border-radius:10px;
+    color:#00ff88;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.course-card p{
+    color:#888;
+    margin:10px 0 20px;
+    line-height:1.6;
+}
+
+/* LESSON */
+.lesson-layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:20px;
+}
+
+.lesson-menu{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:15px;
+    border-radius:12px;
+    height:max-content;
+}
+
+.lesson-menu button{
+    width:100%;
+    text-align:left;
+    padding:12px;
+    margin-bottom:8px;
+    border:1px solid transparent;
+    background:none;
+    color:#aaa;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.lesson-menu button:hover,
+.lesson-menu button.active{
+    border-color:#00ff88;
+    color:#00ff88;
+    background:#071c13;
+}
+
+.lesson-content{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:30px;
+    border-radius:12px;
+}
+
+.lesson-content h2{
+    color:#00ff88;
+    margin-bottom:18px;
+}
+
+.lesson-content p{
+    color:#bbb;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.code{
+    background:#010403;
+    border:1px solid #173b2a;
+    padding:20px;
+    border-radius:10px;
+    color:#00ff88;
+    font-family:monospace;
+    white-space:pre-wrap;
+    overflow:auto;
+    margin-bottom:20px;
+}
+
+/* PROGRESS */
+.progress-box{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.progress-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.progress-head span{
+    color:#00ff88;
+}
+
+.progress-track{
+    height:10px;
+    background:#12231c;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:#00ff88;
+}
+
+/* ADMIN */
+.admin-stat{
+    background:#06100d;
+    border:1px solid #173b2a;
+    border-radius:12px;
+    padding:25px;
+}
+
+.admin-stat h2{
+    color:#00ff88;
+    font-size:35px;
+    margin-top:10px;
+}
+
+.admin-panel{
+    background:#06100d;
+    border:1px solid #173b2a;
+    padding:25px;
+    border-radius:15px;
+    margin-top:25px;
+}
+
+.admin-panel h2{
+    color:#00ff88;
+    margin-bottom:20px;
+}
+
+.lesson-builder{
+    border:1px solid #19382b;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.lesson-builder h3{
+    margin-bottom:15px;
+}
+
+.course-admin-item{
+    background:#08150f;
+    border:1px solid #19382b;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* CERTIFICATE */
+.certificate{
+    max-width:750px;
+    margin:auto;
+    text-align:center;
+    padding:50px;
+    border:3px solid #00ff88;
+    border-radius:15px;
+    background:#06100d;
+}
+
+.certificate h1{
+    color:#00ff88;
+    font-size:38px;
+}
+
+/* RESPONSIVE */
+@media(max-width:750px){
+
+    .nav-inner{
+        padding:14px;
+    }
+
+    .nav-buttons{
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+
+    .lesson-layout{
+        grid-template-columns:1fr;
+    }
+
+    .lesson-menu{
+        display:flex;
+        overflow-x:auto;
+        gap:8px;
+    }
+
+    .lesson-menu button{
+        min-width:150px;
+    }
+
+    .heading h1{
+        font-size:30px;
+    }
+
+    .course-admin-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-logo">&lt;/&gt;</div>
+    <div class="loader-title">CODEX PROGRAMMER</div>
+    <p style="color:#777;margin-top:10px">Initializing...</p>
+
+    <div class="loader-bar">
+        <div class="loader-progress" id="loaderProgress"></div>
+    </div>
+</div>
+
+
+<!-- ================= STUDENT LOGIN ================= -->
+
+<div id="studentLoginScreen" class="login-screen">
+
+<div class="login-box">
+
+    <div class="logo">&lt;CODEX/&gt;</div>
+
+    <p class="subtitle">
+        Student Learning Portal
+    </p>
+
+    <h2>Student Login</h2>
+
+    <div class="input">
+        <label>Username or Email</label>
+        <input id="loginIdentity"
+               placeholder="Enter username or email">
+    </div>
+
+    <div class="input">
+        <label>Password</label>
+        <input type="password"
+               id="loginPassword"
+               placeholder="Enter password">
+    </div>
+
+    <button class="btn green-btn full"
+            onclick="studentLogin()">
+        Login
+    </button>
+
+    <button class="link-btn"
+            onclick="showSignup()">
+        Create Student Account
+    </button>
+
+    <button class="link-btn"
+            onclick="showAdminLogin()">
+        Admin Login
+    </button>
+
+    <div id="loginError" class="error"></div>
+
+</div>
+
+</div>
+
+
+<!-- ================= STUDENT SIGNUP ================= -->
+
+<div id="signupScreen"
+     class="login-screen"
+     style="display:none">
+
+<div class="login-box">
+
+    <div class="logo">&lt;CODEX/&gt;</div>
+
+    <p class="subtitle">
+        Create your student account
+    </p>
+
+    <div class="input">
+        <label>Full Name</label>
+        <input id="signupName"
+               placeholder="Your full name">
+    </div>
+
+    <div class="input">
+        <label>Username</label>
+        <input id="signupUsername"
+               placeholder="Choose a username">
+    </div>
+
+    <div class="input">
+        <label>Email</label>
+        <input type="email"
+               id="signupEmail"
+               placeholder="Your email">
+    </div>
+
+    <div class="input">
+        <label>Password</label>
+        <input type="password"
+               id="signupPassword"
+               placeholder="Choose a password">
+    </div>
+
+    <div class="input">
+        <label>Confirm Password</label>
+        <input type="password"
+               id="signupConfirm"
+               placeholder="Confirm password">
+    </div>
+
+    <button class="btn green-btn full"
+            onclick="createStudent()">
+        Create Account
+    </button>
+
+    <button class="link-btn"
+            onclick="showStudentLogin()">
+        ← Back to Login
+    </button>
+
+    <div id="signupMessage"></div>
+
+</div>
+
+</div>
+
+
+<!-- ================= ADMIN LOGIN ================= -->
+
+<div id="adminLoginScreen"
+     class="login-screen"
+     style="display:none">
+
+<div class="login-box">
+
+    <div class="logo">&lt;ADMIN/&gt;</div>
+
+    <p class="subtitle">
+        CODEX PROGRAMMER Administration
+    </p>
+
+    <div class="input">
+        <label>Admin Email</label>
+        <input type="email"
+               id="adminEmail"
+               placeholder="Admin email">
+    </div>
+
+    <div class="input">
+        <label>Admin Password</label>
+        <input type="password"
+               id="adminPassword"
+               placeholder="Admin password">
+    </div>
+
+    <button class="btn green-btn full"
+            onclick="adminLogin()">
+        Login as Admin
+    </button>
+
+    <button class="link-btn"
+            onclick="showStudentLogin()">
+        ← Student Login
+    </button>
+
+    <div id="adminError" class="error"></div>
+
+</div>
+
+</div>
+
+
+<!-- ================= STUDENT DASHBOARD ================= -->
+
+<div id="studentDashboard" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">
+        &lt;CODEX PROGRAMMER/&gt;
+    </div>
+
+    <div class="nav-buttons">
+
+        <span id="studentNavName"
+              style="color:#00ff88">
+        </span>
+
+        <button class="btn red-btn"
+                onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1>
+        Welcome,
+        <span id="welcomeName">
+            Student
+        </span> 👋
+    </h1>
+
+    <p>
+        Learn coding and build your programming skills.
+    </p>
+
+</div>
+
+<div class="grid">
+
+    <div class="card clickable"
+         onclick="showPage('coursesPage')">
+
+        <div class="icon">📚</div>
+
+        <h3>Courses</h3>
+
+        <p>
+            Explore all available programming courses.
+        </p>
+
+        <span class="card-link">
+            View Courses →
+        </span>
+
+    </div>
+
+
+    <div class="card clickable"
+         onclick="showPage('progressPage')">
+
+        <div class="icon">📈</div>
+
+        <h3>My Progress</h3>
+
+        <p>
+            Track your completed lessons.
+        </p>
+
+        <span class="card-link">
+            View Progress →
+        </span>
+
+    </div>
+
+
+    <div class="card clickable"
+         onclick="showPage('quizPage')">
+
+        <div class="icon">📝</div>
+
+        <h3>Quizzes</h3>
+
+        <p>
+            Test your programming knowledge.
+        </p>
+
+        <span class="card-link">
+            Take Quiz →
+        </span>
+
+    </div>
+
+
+    <div class="card clickable"
+         onclick="showPage('certificatePage')">
+
+        <div class="icon">🏆</div>
+
+        <h3>Certificates</h3>
+
+        <p>
+            Earn certificates by completing courses.
+        </p>
+
+        <span class="card-link">
+            View Certificates →
+        </span>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= COURSES ================= -->
+
+<div id="coursesPage" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">&lt;CODEX/&gt;</div>
+
+    <button class="btn dark-btn"
+            onclick="showPage('studentDashboard')">
+        Dashboard
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1>
+        Programming
+        <span>Courses</span>
+    </h1>
+
+    <p>
+        Select a course to begin learning.
+    </p>
+
+</div>
+
+<div class="grid"
+     id="studentCourses">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= LEARNING PAGE ================= -->
+
+<div id="learningPage" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">&lt;CODEX/&gt;</div>
+
+    <button class="btn dark-btn"
+            onclick="showPage('coursesPage')">
+        Courses
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1 id="learningCourseName">
+        Course
+    </h1>
+
+    <p id="learningCourseDescription"></p>
+
+</div>
+
+<div class="lesson-layout">
+
+    <div class="lesson-menu"
+         id="lessonMenu">
+    </div>
+
+    <div class="lesson-content">
+
+        <h2 id="lessonTitle">
+            Select a lesson
+        </h2>
+
+        <p id="lessonContent">
+            Select a lesson to start learning.
+        </p>
+
+        <div class="code"
+             id="lessonCode">
+        </div>
+
+        <button class="btn green-btn"
+                onclick="completeLesson()"
+                id="completeButton">
+            ✓ Mark Lesson Complete
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<div id="progressPage" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">&lt;CODEX/&gt;</div>
+
+    <button class="btn dark-btn"
+            onclick="showPage('studentDashboard')">
+        Dashboard
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1>
+        My <span>Progress</span>
+    </h1>
+
+    <p>
+        Your learning progress.
+    </p>
+
+</div>
+
+<div id="progressList"></div>
+
+</div>
+
+</div>
+
+
+<!-- ================= QUIZ ================= -->
+
+<div id="quizPage" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">&lt;CODEX/&gt;</div>
+
+    <button class="btn dark-btn"
+            onclick="showPage('studentDashboard')">
+        Dashboard
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1>
+        Programming <span>Quiz</span>
+    </h1>
+
+</div>
+
+<div class="card">
+
+    <h2>
+        Which language is used to structure webpages?
+    </h2>
+
+    <br>
+
+    <label>
+        <input type="radio"
+               name="quiz"
+               value="wrong">
+        Python
+    </label>
+
+    <br><br>
+
+    <label>
+        <input type="radio"
+               name="quiz"
+               value="correct">
+        HTML
+    </label>
+
+    <br><br>
+
+    <label>
+        <input type="radio"
+               name="quiz"
+               value="wrong">
+        SQL
+    </label>
+
+    <br><br>
+
+    <button class="btn green-btn"
+            onclick="submitQuiz()">
+        Submit
+    </button>
+
+    <p id="quizResult"
+       style="margin-top:20px">
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= CERTIFICATE ================= -->
+
+<div id="certificatePage" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">&lt;CODEX/&gt;</div>
+
+    <button class="btn dark-btn"
+            onclick="showPage('studentDashboard')">
+        Dashboard
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="certificate">
+
+    <div style="font-size:60px">
+        🏆
+    </div>
+
+    <h1>
+        CODEX PROGRAMMER
+    </h1>
+
+    <p style="margin-top:15px">
+        Certificate of Achievement
+    </p>
+
+    <p style="color:#888;margin-top:15px">
+        Complete your courses to earn your certificate.
+    </p>
+
+    <p id="certificateMessage"
+       style="color:#00ff88;margin-top:20px">
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+
+<div id="adminDashboard" class="page">
+
+<nav>
+<div class="nav-inner">
+
+    <div class="nav-logo">
+        &lt;CODEX ADMIN/&gt;
+    </div>
+
+    <button class="btn red-btn"
+            onclick="logout()">
+        Logout
+    </button>
+
+</div>
+</nav>
+
+<div class="container">
+
+<div class="heading">
+
+    <h1>
+        Admin <span>Dashboard</span>
+    </h1>
+
+    <p>
+        Manage your CODEX PROGRAMMER platform.
+    </p>
+
+</div>
+
+
+<!-- ADMIN STATS -->
+
+<div class="grid">
+
+    <div class="admin-stat">
+
+        <p>Students</p>
+
+        <h2 id="studentCount">
+            0
+        </h2>
+
+    </div>
+
+    <div class="admin-stat">
+
+        <p>Courses</p>
+
+        <h2 id="courseCount">
+            0
+        </h2>
+
+    </div>
+
+    <div class="admin-stat">
+
+        <p>Lessons</p>
+
+        <h2 id="lessonCount">
+            0
+        </h2>
+
+    </div>
+
+</div>
+
+
+<!-- ADD COURSE -->
+
+<div class="admin-panel">
+
+<h2>
+    ➕ Add New Course
+</h2>
+
+<div class="input">
+
+<label>Course Name</label>
+
+<input id="newCourseName"
+       placeholder="Example: React JS">
+
+</div>
+
+
+<div class="input">
+
+<label>Course Description</label>
+
+<textarea id="newCourseDescription"
+          placeholder="Describe the course"></textarea>
+
+</div>
+
+
+<div class="input">
+
+<label>Course Icon</label>
+
+<input id="newCourseIcon"
+       placeholder="Example: REACT">
+
+</div>
+
+
+<h3 style="margin:25px 0 15px;color:#00ff88">
+    Course Lessons
+</h3>
+
+<div id="lessonBuilder"></div>
+
+<button class="btn dark-btn"
+        onclick="addLessonField()">
+    + Add Another Lesson
+</button>
+
+<br><br>
+
+<button class="btn green-btn"
+        onclick="createCourse()">
+    🚀 Publish Course
+</button>
+
+<div id="courseMessage"></div>
+
+</div>
+
+
+<!-- EXISTING COURSES -->
+
+<div class="admin-panel">
+
+<h2>
+    📚 Manage Courses
+</h2>
+
+<div id="adminCourses"></div>
+
+</div>
+
+
+<!-- STUDENTS -->
+
+<div class="admin-panel">
+
+<h2>
+    👨‍🎓 Registered Students
+</h2>
+
+<div id="adminStudents"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =================================================
+   ADMIN SETTINGS
+   ================================================= */
+
+const ADMIN_EMAIL =
+    "tofem2001ng@gmail.com";
+
+/*
+   CHANGE THIS PASSWORD.
+*/
+
+const ADMIN_PASSWORD =
+    "Davidote";
+
+
+/* =================================================
+   DEFAULT COURSES
+   ================================================= */
+
+const defaultCourses = {
+
+"HTML":{
+description:"Learn how to structure webpages with HTML.",
+icon:"HTML",
+lessons:[
+{
+title:"Introduction to HTML",
+content:"HTML stands for HyperText Markup Language. It is used to structure webpages.",
+code:`<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Hello World</h1>
+<p>My first webpage.</p>
+
+</body>
+</html>`
+},
+{
+title:"Headings and Paragraphs",
+content:"Headings organize your webpage while paragraphs contain normal text.",
+code:`<h1>Main Heading</h1>
+<h2>Sub Heading</h2>
+<p>This is a paragraph.</p>`
+},
+{
+title:"Links",
+content:"Links allow users to move from one webpage to another.",
+code:`<a href="https://example.com">
+Visit Website
+</a>`
+}
+]
+},
+
+"CSS":{
+description:"Learn how to style beautiful websites.",
+icon:"CSS",
+lessons:[
+{
+title:"Introduction to CSS",
+content:"CSS controls the appearance of HTML elements.",
+code:`body {
+    background:black;
+    color:white;
+}
+
+h1 {
+    color:#00ff88;
+}`
+},
+{
+title:"Colors",
+content:"CSS provides different ways to specify colors.",
+code:`h1 {
+    color:#00ff88;
+}`
+},
+{
+title:"Flexbox",
+content:"Flexbox helps arrange elements on a webpage.",
+code:`.container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}`
+}
+]
+},
+
+"JavaScript":{
+description:"Learn how to make webpages interactive.",
+icon:"JS",
+lessons:[
+{
+title:"JavaScript Introduction",
+content:"JavaScript allows websites to respond to user actions.",
+code:`console.log("Hello World");`
+},
+{
+title:"Variables",
+content:"Variables store information in your program.",
+code:`let name = "Alex";
+const age = 15;
+
+console.log(name);`
+},
+{
+title:"Functions",
+content:"Functions contain reusable pieces of code.",
+code:`function greet(){
+    console.log("Hello!");
+}
+
+greet();`
+}
+]
+},
+
+"Python":{
+description:"Learn programming using Python.",
+icon:"PY",
+lessons:[
+{
+title:"Python Introduction",
+content:"Python is a popular beginner-friendly programming language.",
+code:`print("Hello World")`
+},
+{
+title:"Variables",
+content:"Python variables store information.",
+code:`name = "Alex"
+age = 15
+
+print(name)`
+},
+{
+title:"Conditions",
+content:"Conditions allow Python programs to make decisions.",
+code:`age = 18
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Young")`
+}
+]
+},
+
+"C++":{
+description:"Learn powerful C++ programming.",
+icon:"C++",
+lessons:[
+{
+title:"C++ Introduction",
+content:"C++ is a powerful general-purpose programming language.",
+code:`#include <iostream>
+
+int main(){
+
+    std::cout << "Hello World";
+
+    return 0;
+}`
+},
+{
+title:"Variables",
+content:"Variables store information in C++.",
+code:`int age = 15;
+string name = "Alex";`
+}
+]
+},
+
+"SQL":{
+description:"Learn databases and SQL.",
+icon:"SQL",
+lessons:[
+{
+title:"SQL Introduction",
+content:"SQL is used to communicate with databases.",
+code:`SELECT * FROM students;`
+},
+{
+title:"SELECT",
+content:"SELECT retrieves information from a database.",
+code:`SELECT name, age
+FROM students;`
+},
+{
+title:"WHERE",
+content:"WHERE filters database records.",
+code:`SELECT *
+FROM students
+WHERE age >= 18;`
+}
+]
+}
+
+};
+
+
+/* =================================================
+   LOAD COURSES
+   ================================================= */
+
+function getCourses(){
+
+    const saved =
+        localStorage.getItem("codexCourses");
+
+    if(saved){
+
+        return JSON.parse(saved);
+
+    }
+
+    localStorage.setItem(
+        "codexCourses",
+        JSON.stringify(defaultCourses)
+    );
+
+    return defaultCourses;
+}
+
+
+function saveCourses(courses){
+
+    localStorage.setItem(
+        "codexCourses",
+        JSON.stringify(courses)
+    );
+
+}
+
+
+/* =================================================
+   LOADER
+   ================================================= */
+
+let load = 0;
+
+const loaderInterval =
+setInterval(()=>{
+
+    load += 5;
+
+    document.getElementById(
+        "loaderProgress"
+    ).style.width =
+        load + "%";
+
+    if(load >= 100){
+
+        clearInterval(loaderInterval);
+
+        setTimeout(()=>{
+
+            document.getElementById(
+                "loader"
+            ).style.display =
+                "none";
+
+        },400);
+
+    }
+
+},70);
+
+
+/* =================================================
+   PAGE NAVIGATION
+   ================================================= */
+
+function showPage(id){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const page =
+        document.getElementById(id);
+
+    if(page){
+
+        page.classList.add("active");
+
+        window.scrollTo(0,0);
+
+    }
+
+    if(id === "coursesPage")
+        renderStudentCourses();
+
+    if(id === "progressPage")
+        renderProgress();
+
+    if(id === "certificatePage")
+        updateCertificate();
+
+    if(id === "adminDashboard")
+        renderAdmin();
+}
+
+
+/* =================================================
+   STUDENT SIGNUP
+   ================================================= */
+
+function showSignup(){
+
+    document.getElementById(
+        "studentLoginScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "signupScreen"
+    ).style.display =
+        "flex";
+
+}
+
+
+function createStudent(){
+
+    const name =
+        document.getElementById(
+            "signupName"
+        ).value.trim();
+
+    const username =
+        document.getElementById(
+            "signupUsername"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "signupEmail"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "signupPassword"
+        ).value;
+
+    const confirm =
+        document.getElementById(
+            "signupConfirm"
+        ).value;
+
+    const message =
+        document.getElementById(
+            "signupMessage"
+        );
+
+
+    if(!name || !username || !email || !password){
+
+        message.className = "error";
+        message.textContent =
+            "Please fill in all fields.";
+
+        return;
+
+    }
+
+
+    if(password !== confirm){
+
+        message.className = "error";
+        message.textContent =
+            "Passwords do not match.";
+
+        return;
+
+    }
+
+
+    let students =
+        JSON.parse(
+            localStorage.getItem(
+                "codexStudents"
+            ) || "[]"
+        );
+
+
+    const exists =
+        students.some(student =>
+            student.username.toLowerCase()
+            === username.toLowerCase()
+            ||
+            student.email.toLowerCase()
+            === email.toLowerCase()
+        );
+
+
+    if(exists){
+
+        message.className = "error";
+        message.textContent =
+            "Username or email already exists.";
+
+        return;
+
+    }
+
+
+    const newStudent = {
+
+        id:Date.now(),
+
+        name:name,
+
+        username:username,
+
+        email:email,
+
+        password:password
+
+    };
+
+
+    students.push(newStudent);
+
+
+    localStorage.setItem(
+        "codexStudents",
+        JSON.stringify(students)
+    );
+
+
+    message.className =
+        "success";
+
+    message.textContent =
+        "Account created! You can now login.";
+
+
+    setTimeout(
+        showStudentLogin,
+        1200
+    );
+
+}
+
+
+/* =================================================
+   STUDENT LOGIN
+   ================================================= */
+
+function showStudentLogin(){
+
+    document.getElementById(
+        "signupScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "adminLoginScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "studentLoginScreen"
+    ).style.display =
+        "flex";
+
+}
+
+
+function studentLogin(){
+
+    const identity =
+        document.getElementById(
+            "loginIdentity"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
+
+    const students =
+        JSON.parse(
+            localStorage.getItem(
+                "codexStudents"
+            ) || "[]"
+        );
+
+
+    const student =
+        students.find(s =>
+
+            (
+                s.username.toLowerCase()
+                === identity.toLowerCase()
+
+                ||
+
+                s.email.toLowerCase()
+                === identity.toLowerCase()
+
+            )
+
+            &&
+
+            s.password === password
+
+        );
+
+
+    if(!student){
+
+        document.getElementById(
+            "loginError"
+        ).textContent =
+            "Invalid username/email or password.";
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "codexCurrentStudent",
+        student.id
+    );
+
+
+    document.getElementById(
+        "welcomeName"
+    ).textContent =
+        student.name;
+
+
+    document.getElementById(
+        "studentNavName"
+    ).textContent =
+        student.name;
+
+
+    document.getElementById(
+        "studentLoginScreen"
+    ).style.display =
+        "none";
+
+
+    showPage(
+        "studentDashboard"
+    );
+
+}
+
+
+/* =================================================
+   ADMIN LOGIN
+   ================================================= */
+
+function showAdminLogin(){
+
+    document.getElementById(
+        "studentLoginScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "adminLoginScreen"
+    ).style.display =
+        "flex";
+
+}
+
+
+function adminLogin(){
+
+    const email =
+        document.getElementById(
+            "adminEmail"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+
+    if(
+
+        email.toLowerCase()
+        === ADMIN_EMAIL.toLowerCase()
+
+        &&
+
+        password === ADMIN_PASSWORD
+
+    ){
+
+        localStorage.setItem(
+            "codexAdmin",
+            "true"
+        );
+
+        document.getElementById(
+            "adminLoginScreen"
+        ).style.display =
+            "none";
+
+        showPage(
+            "adminDashboard"
+        );
+
+    }else{
+
+        document.getElementById(
+            "adminError"
+        ).textContent =
+            "Invalid administrator credentials.";
+
+    }
+
+}
+
+
+/* =================================================
+   STUDENT COURSES
+   ================================================= */
+
+function renderStudentCourses(){
+
+    const container =
+        document.getElementById(
+            "studentCourses"
+        );
+
+    container.innerHTML = "";
+
+    const courses =
+        getCourses();
+
+
+    Object.keys(courses).forEach(
+        courseName=>{
+
+            const course =
+                courses[courseName];
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "course-card";
+
+
+            card.innerHTML = `
+
+                <div class="course-icon">
+                    ${course.icon}
+                </div>
+
+                <h3>
+                    ${courseName}
+                </h3>
+
+                <p>
+                    ${course.description}
+                </p>
+
+                <button
+                    class="btn green-btn full"
+                    onclick="openCourse('${escapeQuotes(courseName)}')">
+
+                    Start Course
+
+                </button>
+
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
+
+}
+
+
+function escapeQuotes(text){
+
+    return text
+        .replace(/'/g,"\\'")
+        .replace(/"/g,'\\"');
+
+}
+
+
+/* =================================================
+   COURSE LEARNING
+   ================================================= */
+
+let currentCourse = "";
+let currentLesson = 0;
+
+
+function openCourse(courseName){
+
+    currentCourse =
+        courseName;
+
+    currentLesson = 0;
+
+    const courses =
+        getCourses();
+
+    const course =
+        courses[courseName];
+
+
+    document.getElementById(
+        "learningCourseName"
+    ).textContent =
+        courseName;
+
+
+    document.getElementById(
+        "learningCourseDescription"
+    ).textContent =
+        course.description;
+
+
+    renderLessonMenu();
+
+    showLesson(0);
+
+    showPage(
+        "learningPage"
+    );
+
+}
+
+
+function renderLessonMenu(){
+
+    const menu =
+        document.getElementById(
+            "lessonMenu"
+        );
+
+    menu.innerHTML = "";
+
+    const courses =
+        getCourses();
+
+    const course =
+        courses[currentCourse];
+
+
+    course.lessons.forEach(
+        (lesson,index)=>{
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.textContent =
+                "Lesson " + (index+1);
+
+            button.onclick =
+                ()=>showLesson(index);
+
+            menu.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+function showLesson(index){
+
+    currentLesson =
+        index;
+
+    const courses =
+        getCourses();
+
+    const lesson =
+        courses[currentCourse]
+        .lessons[index];
+
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
+        lesson.title;
+
+
+    document.getElementById(
+        "lessonContent"
+    ).textContent =
+        lesson.content;
+
+
+    document.getElementById(
+        "lessonCode"
+    ).textContent =
+        lesson.code || "No code example";
+
+
+    document
+    .querySelectorAll(
+        "#lessonMenu button"
+    )
+    .forEach(
+        (button,i)=>{
+
+            button.classList.toggle(
+                "active",
+                i === index
+            );
+
+        }
+    );
+
+
+    updateCompleteButton();
+
+}
+
+
+function currentStudentId(){
+
+    return localStorage.getItem(
+        "codexCurrentStudent"
+    );
+
+}
+
+
+function progressKey(){
+
+    return "codexProgress_" +
+        currentStudentId();
+
+}
+
+
+function getProgress(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            progressKey()
+        ) || "{}"
+    );
+
+}
+
+
+function saveProgress(progress){
+
+    localStorage.setItem(
+        progressKey(),
+        JSON.stringify(progress)
+    );
+
+}
+
+
+function completeLesson(){
+
+    const progress =
+        getProgress();
+
+
+    if(!progress[currentCourse])
+        progress[currentCourse] = [];
+
+
+    if(
+        !progress[currentCourse]
+        .includes(currentLesson)
+    ){
+
+        progress[currentCourse]
+        .push(currentLesson);
+
+    }
+
+
+    saveProgress(progress);
+
+    updateCompleteButton();
+
+    alert(
+        "Lesson completed! 🚀"
+    );
+
+}
+
+
+function updateCompleteButton(){
+
+    const progress =
+        getProgress();
+
+
+    const completed =
+        progress[currentCourse]
+        &&
+        progress[currentCourse]
+        .includes(currentLesson);
+
+
+    document.getElementById(
+        "completeButton"
+    ).textContent =
+        completed
+        ? "✓ Lesson Completed"
+        : "✓ Mark Lesson Complete";
+
+}
+
+
+/* =================================================
+   PROGRESS
+   ================================================= */
+
+function coursePercentage(
+    courseName
+){
+
+    const courses =
+        getCourses();
+
+    const total =
+        courses[courseName]
+        .lessons.length;
+
+
+    const progress =
+        getProgress();
+
+
+    const completed =
+        progress[courseName]
+        ? progress[courseName].length
+        : 0;
+
+
+    return Math.round(
+        (completed / total) * 100
+    );
+
+}
+
+
+function renderProgress(){
+
+    const container =
+        document.getElementById(
+            "progressList"
+        );
+
+    container.innerHTML = "";
+
+
+    const courses =
+        getCourses();
+
+
+    Object.keys(courses)
+    .forEach(
+        courseName=>{
+
+            const percentage =
+                coursePercentage(
+                    courseName
+                );
+
+
+            container.innerHTML += `
+
+                <div class="progress-box">
+
+                    <div class="progress-head">
+
+                        <strong>
+                            ${courseName}
+                        </strong>
+
+                        <span>
+                            ${percentage}%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill"
+                            style="width:${percentage}%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   QUIZ
+   ================================================= */
+
+function submitQuiz(){
+
+    const selected =
+        document.querySelector(
+            'input[name="quiz"]:checked'
+        );
+
+
+    const result =
+        document.getElementById(
+            "quizResult"
+        );
+
+
+    if(!selected){
+
+        result.textContent =
+            "Please choose an answer.";
+
+        return;
+
+    }
+
+
+    if(selected.value === "correct"){
+
+        result.style.color =
+            "#00ff88";
+
+        result.textContent =
+            "✅ Correct! Great job.";
+
+    }else{
+
+        result.style.color =
+            "#ff5555";
+
+        result.textContent =
+            "❌ Incorrect. Try again.";
+
+    }
+
+}
+
+
+/* =================================================
+   CERTIFICATE
+   ================================================= */
+
+function updateCertificate(){
+
+    const courses =
+        getCourses();
+
+    const names =
+        Object.keys(courses);
+
+    let completed = 0;
+
+
+    names.forEach(
+        courseName=>{
+
+            if(
+                coursePercentage(courseName)
+                === 100
+            ){
+
+                completed++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "certificateMessage"
+    ).textContent =
+
+        completed > 0
+
+        ? "🎉 Congratulations! You have completed a course."
+
+        : "Complete a course to earn your certificate.";
+
+}
+
+
+/* =================================================
+   ADMIN LESSON BUILDER
+   ================================================= */
+
+let lessonNumber = 0;
+
+
+function addLessonField(){
+
+    lessonNumber++;
+
+
+    const builder =
+        document.getElementById(
+            "lessonBuilder"
+        );
+
+
+    const lesson =
+        document.createElement(
+            "div"
+        );
+
+
+    lesson.className =
+        "lesson-builder";
+
+
+    lesson.innerHTML = `
+
+        <h3>
+            Lesson ${lessonNumber}
+        </h3>
+
+        <div class="input">
+
+            <label>
+                Lesson Title
+            </label>
+
+            <input
+                class="lesson-title"
+                placeholder="Example: Introduction">
+
+        </div>
+
+
+        <div class="input">
+
+            <label>
+                Lesson Content
+            </label>
+
+            <textarea
+                class="lesson-content-input"
+                placeholder="Write the lesson here..."></textarea>
+
+        </div>
+
+
+        <div class="input">
+
+            <label>
+                Code Example
+            </label>
+
+            <textarea
+                class="lesson-code-input"
+                placeholder="Write code example..."></textarea>
+
+        </div>
+
+    `;
+
+
+    builder.appendChild(
+        lesson
+    );
+
+}
+
+
+/* =================================================
+   CREATE COURSE
+   ================================================= */
+
+function createCourse(){
+
+    const name =
+        document.getElementById(
+            "newCourseName"
+        ).value.trim();
+
+    const description =
+        document.getElementById(
+            "newCourseDescription"
+        ).value.trim();
+
+    const icon =
+        document.getElementById(
+            "newCourseIcon"
+        ).value.trim()
+        || "CODE";
+
+
+    const message =
+        document.getElementById(
+            "courseMessage"
+        );
+
+
+    if(!name || !description){
+
+        message.className =
+            "error";
+
+        message.textContent =
+            "Enter a course name and description.";
+
+        return;
+
+    }
+
+
+    const courses =
+        getCourses();
+
+
+    if(courses[name]){
+
+        message.className =
+            "error";
+
+        message.textContent =
+            "That course already exists.";
+
+        return;
+
+    }
+
+
+    const lessonElements =
+        document.querySelectorAll(
+            ".lesson-builder"
+        );
+
+
+    if(lessonElements.length === 0){
+
+        message.className =
+            "error";
+
+        message.textContent =
+            "Add at least one lesson.";
+
+        return;
+
+    }
+
+
+    const lessons = [];
+
+
+    lessonElements.forEach(
+        element=>{
+
+            const title =
+                element.querySelector(
+                    ".lesson-title"
+                ).value.trim();
+
+
+            const content =
+                element.querySelector(
+                    ".lesson-content-input"
+                ).value.trim();
+
+
+            const code =
+                element.querySelector(
+                    ".lesson-code-input"
+                ).value;
+
+
+            if(title && content){
+
+                lessons.push({
+
+                    title:title,
+
+                    content:content,
+
+                    code:code
+
+                });
+
+            }
+
+        }
+    );
+
+
+    if(lessons.length === 0){
+
+        message.className =
+            "error";
+
+        message.textContent =
+            "Fill in at least one lesson.";
+
+        return;
+
+    }
+
+
+    courses[name] = {
+
+        description:
+            description,
+
+        icon:
+            icon,
+
+        lessons:
+            lessons
+
+    };
+
+
+    saveCourses(
+        courses
+    );
+
+
+    message.className =
+        "success";
+
+    message.textContent =
+        "🎉 Course published successfully!";
+
+
+    document.getElementById(
+        "newCourseName"
+    ).value = "";
+
+    document.getElementById(
+        "newCourseDescription"
+    ).value = "";
+
+    document.getElementById(
+        "newCourseIcon"
+    ).value = "";
+
+
+    document.getElementById(
+        "lessonBuilder"
+    ).innerHTML = "";
+
+
+    lessonNumber = 0;
+
+
+    addLessonField();
+
+    renderAdmin();
+
+}
+
+
+/* =================================================
+   ADMIN DASHBOARD
+   ================================================= */
+
+function renderAdmin(){
+
+    const courses =
+        getCourses();
+
+
+    const students =
+        JSON.parse(
+            localStorage.getItem(
+                "codexStudents"
+            ) || "[]"
+        );
+
+
+    let lessons = 0;
+
+
+    Object.values(courses)
+    .forEach(course=>{
+
+        lessons +=
+            course.lessons.length;
+
+    });
+
+
+    document.getElementById(
+        "studentCount"
+    ).textContent =
+        students.length;
+
+
+    document.getElementById(
+        "courseCount"
+    ).textContent =
+        Object.keys(courses).length;
+
+
+    document.getElementById(
+        "lessonCount"
+    ).textContent =
+        lessons;
+
+
+    renderAdminCourses();
+
+    renderAdminStudents();
+
+}
+
+
+/* =================================================
+   ADMIN COURSES
+   ================================================= */
+
+function renderAdminCourses(){
+
+    const container =
+        document.getElementById(
+            "adminCourses"
+        );
+
+
+    const courses =
+        getCourses();
+
+
+    container.innerHTML = "";
+
+
+    Object.keys(courses)
+    .forEach(
+        courseName=>{
+
+            const course =
+                courses[courseName];
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "course-admin-item";
+
+
+            item.innerHTML = `
+
+                <div>
+
+                    <strong>
+                        ${courseName}
+                    </strong>
+
+                    <p style="color:#777;margin-top:5px">
+                        ${course.lessons.length}
+                        lesson(s)
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn red-btn"
+                    onclick="deleteCourse('${escapeQuotes(courseName)}')">
+
+                    Delete
+
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   DELETE COURSE
+   ================================================= */
+
+function deleteCourse(courseName){
+
+    if(
+        !confirm(
+            "Delete " +
+            courseName +
+            "?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const courses =
+        getCourses();
+
+
+    delete courses[
+        courseName
+    ];
+
+
+    saveCourses(
+        courses
+    );
+
+
+    renderAdmin();
+
+}
+
+
+/* =================================================
+   ADMIN STUDENTS
+   ================================================= */
+
+function renderAdminStudents(){
+
+    const container =
+        document.getElementById(
+            "adminStudents"
+        );
+
+
+    const students =
+        JSON.parse(
+            localStorage.getItem(
+                "codexStudents"
+            ) || "[]"
+        );
+
+
+    if(students.length === 0){
+
+        container.innerHTML =
+            "<p style='color:#777'>No students registered yet.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    students.forEach(
+        student=>{
+
+            container.innerHTML += `
+
+                <div class="course-admin-item">
+
+                    <div>
+
+                        <strong>
+                            ${student.name}
+                        </strong>
+
+                        <p style="color:#777;margin-top:5px">
+
+                            @${student.username}
+
+                            <br>
+
+                            ${student.email}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+function renderAdminStudents(){
+
+    const container =
+        document.getElementById("adminStudents");
+
+    const students =
+        JSON.parse(
+            localStorage.getItem("codexStudents") || "[]"
+        );
+
+    if(students.length === 0){
+
+        container.innerHTML =
+            "<p style='color:#777'>No students registered yet.</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    students.forEach(student => {
+
+        container.innerHTML += `
+
+            <div class="course-admin-item">
+
+                <div>
+                    <strong>
+                        ${student.name}
+                    </strong>
+
+                    <p style="color:#777;margin-top:5px">
+                        @${student.username}
+                        <br>
+                        ${student.email}
+                    </p>
+                </div>
+
+                <button
+                    class="btn red-btn"
+                    onclick="deleteStudent(${student.id})">
+
+                    🗑 Delete Student
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+}
+function deleteStudent(studentId){
+
+    const students =
+        JSON.parse(
+            localStorage.getItem("codexStudents") || "[]"
+        );
+
+    const student =
+        students.find(
+            student => student.id === studentId
+        );
+
+    if(!student){
+        alert("Student not found.");
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to delete ${student.name}'s account?`
+        );
+
+    if(!confirmed){
+        return;
+    }
+
+    const updatedStudents =
+        students.filter(
+            student => student.id !== studentId
+        );
+
+    localStorage.setItem(
+        "codexStudents",
+        JSON.stringify(updatedStudents)
+    );
+
+    // Also remove the student's saved progress
+    localStorage.removeItem(
+        "codexProgress_" + studentId
+    );
+
+    renderAdmin();
+
+    alert(
+        `${student.name}'s account has been deleted.`
+    );
+}
+
+
+/* =================================================
+   LOGOUT
+   ================================================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "codexCurrentStudent"
+    );
+
+    localStorage.removeItem(
+        "codexAdmin"
+    );
+
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        page=>{
+            page.classList.remove(
+                "active"
+            );
+        }
+    );
+
+
+    showStudentLogin();
+
+}
+
+
+/* =================================================
+   STARTUP
+   ================================================= */
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        getCourses();
+
+        /*
+          Create first lesson field
+          for the admin course creator.
+        */
+
+        addLessonField();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

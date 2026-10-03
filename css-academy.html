@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEX PROGRAMMER — CSS Academy</title>
+<style>
+:root{
+  --bg:#07111f;--panel:#0d1b2e;--panel2:#10243b;--text:#eaf4ff;
+  --muted:#91a8bf;--accent:#35d0ff;--accent2:#7c5cff;--good:#38e08f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button{font:inherit;cursor:pointer}
+.loading{position:fixed;inset:0;background:#02060d;display:flex;align-items:center;justify-content:center;z-index:99;overflow:hidden;transition:opacity .8s,visibility .8s}
+.loading.hide{opacity:0;visibility:hidden}
+.loading-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(53,208,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(53,208,255,.07) 1px,transparent 1px);background-size:45px 45px;animation:gridMove 7s linear infinite}
+@keyframes gridMove{to{background-position:45px 45px}}
+.loader{text-align:center;position:relative;z-index:2;width:min(620px,90%)}
+.logo-mark{width:82px;height:82px;margin:auto;border:2px solid var(--accent);border-radius:20px;display:grid;place-items:center;box-shadow:0 0 30px rgba(53,208,255,.35);animation:pulse 1.8s infinite}
+.logo-mark span{font-weight:900;font-size:24px;color:var(--accent)}
+@keyframes pulse{50%{transform:scale(1.06);box-shadow:0 0 55px rgba(53,208,255,.55)}}
+.loader h1{font-size:clamp(28px,6vw,58px);margin:20px 0 6px;letter-spacing:4px}
+.loader p{color:var(--muted);margin:0 0 25px}
+.progress{height:7px;background:#122238;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));animation:load 4.8s ease forwards}
+@keyframes load{to{width:100%}}
+.percent{margin-top:12px;color:var(--accent);font-weight:700}
+
+header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.88);backdrop-filter:blur(12px);border-bottom:1px solid #18304a}
+nav{max-width:1200px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:900;letter-spacing:2px;color:var(--accent)}
+nav a{color:var(--text);text-decoration:none;margin-left:18px;font-size:14px}
+nav a:hover{color:var(--accent)}
+main{max-width:1200px;margin:auto;padding:35px 20px 80px}
+.hero{padding:45px 0 30px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.badge{display:inline-block;padding:8px 12px;border:1px solid #21425d;border-radius:99px;color:var(--accent);background:#0a1b2b}
+h2{font-size:clamp(34px,6vw,64px);line-height:1.05;margin:18px 0}
+.hero p{font-size:18px;color:var(--muted);line-height:1.7}
+.hero-card{background:linear-gradient(145deg,#10233a,#0a1728);border:1px solid #1e3c57;border-radius:22px;padding:25px;box-shadow:0 20px 60px #0005}
+.code-mini{background:#050b14;border-radius:14px;padding:20px;font-family:Consolas,monospace;color:#bdeaff;line-height:1.7}
+.cta{display:inline-block;margin-top:12px;background:var(--accent);color:#03101a;padding:13px 18px;border:0;border-radius:10px;font-weight:800;text-decoration:none}
+.section-title{margin-top:55px;font-size:30px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid #19334d;border-radius:17px;padding:22px;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:#2a668c}
+.card h3{margin-top:0}
+.card p{color:var(--muted);line-height:1.6}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-wrap{margin-top:25px;background:var(--panel);border:1px solid #19334d;border-radius:20px;padding:25px}
+.lesson-top{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.lesson-top button,.quiz button{background:var(--panel2);border:1px solid #2a4b68;color:var(--text);padding:10px 14px;border-radius:9px}
+.lesson-content{line-height:1.75;color:#c5d5e5}
+pre{background:#050b14;padding:18px;border-radius:12px;overflow:auto;border:1px solid #18304a;color:#bdeaff}
+.editor{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+textarea{width:100%;min-height:210px;background:#050b14;color:#d9f5ff;border:1px solid #21425d;border-radius:12px;padding:15px;font-family:Consolas,monospace;resize:vertical}
+.preview{background:white;border-radius:12px;min-height:210px;padding:20px;color:#111}
+.quiz{margin-top:35px}
+.option{display:block;width:100%;text-align:left;margin:9px 0}
+.result{font-weight:800;margin-top:12px}
+footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #18304a}
+
+@media(max-width:800px){
+ .hero,.editor{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}
+ nav a{margin-left:8px}.hero{padding-top:25px}
+}
+@media(max-width:520px){.grid{grid-template-columns:1fr}nav{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<div class="loading" id="loading">
+  <div class="loading-grid"></div>
+  <div class="loader">
+    <div class="logo-mark"><span>&lt;/&gt;</span></div>
+    <h1>CODEX PROGRAMMER</h1>
+    <p>Preparing your CSS learning environment...</p>
+    <div class="progress"><i></i></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
+</div>
+
+<header>
+<nav>
+  <div class="brand">CODEX PROGRAMMER</div>
+  <div>
+    <a href="#home">Home</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#practice">Practice</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+</header>
+
+<main id="home">
+<section class="hero">
+  <div>
+    <span class="badge">CSS ONLY • BEGINNER → ADVANCED</span>
+    <h2>Master CSS.<br><span style="color:var(--accent)">Build beautiful websites.</span></h2>
+    <p>Learn how to style HTML pages with practical lessons, examples, an interactive playground and quizzes.</p>
+    <a class="cta" href="#lessons">Start Learning</a>
+  </div>
+  <div class="hero-card">
+    <div class="code-mini">
+      <span style="color:#7c5cff">.codex</span> {<br>
+      &nbsp;&nbsp;color: #35d0ff;<br>
+      &nbsp;&nbsp;padding: 20px;<br>
+      &nbsp;&nbsp;border-radius: 12px;<br>
+      &nbsp;&nbsp;transition: .3s;<br>
+      }
+    </div>
+  </div>
+</section>
+
+<h2 class="section-title" id="lessons">CSS Learning Path</h2>
+<div class="grid" id="lessonCards"></div>
+
+<div class="lesson-wrap">
+  <div class="lesson-top">
+    <h2 id="lessonTitle" style="font-size:28px;margin:0">Select a lesson</h2>
+    <button onclick="nextLesson()">Next Lesson →</button>
+  </div>
+  <div class="lesson-content" id="lessonContent">
+    <p>Choose a lesson card above to begin.</p>
+  </div>
+</div>
+
+<h2 class="section-title" id="practice">CSS Playground</h2>
+<p style="color:var(--muted)">Edit the CSS and see the result instantly.</p>
+<div class="editor">
+<textarea id="cssInput">.box {
+  background: #35d0ff;
+  color: #06101b;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+}</textarea>
+<div class="preview" id="preview"><div class="box">CODEX CSS</div></div>
+</div>
+
+<div class="quiz" id="quiz">
+<h2 class="section-title">Quick CSS Quiz</h2>
+<div class="card">
+<h3>1. Which property changes text color?</h3>
+<button class="option" onclick="answer(this,false)">A. background</button>
+<button class="option" onclick="answer(this,true)">B. color</button>
+<button class="option" onclick="answer(this,false)">C. font-size</button>
+<button class="option" onclick="answer(this,false)">D. text-style</button>
+<p class="result" id="quizResult"></p>
+</div>
+</div>
+</main>
+
+<footer>© 2026 CODEX PROGRAMMER • CSS Learning Academy</footer>
+
+<script>
+const lessons=[
+["01","Introduction to CSS",
+`<h3>What is CSS?</h3>
+<p><strong>CSS</strong> means <strong>Cascading Style Sheets</strong>. CSS is used to control how HTML elements look on a webpage.</p>
+<p>With CSS you can change colors, fonts, spacing, borders, sizes, layouts, animations and much more.</p>
+<h3>Basic CSS Syntax</h3>
+<pre>selector {
+  property: value;
+}</pre>
+<p>Example:</p>
+<pre>p {
+  color: blue;
+  font-size: 20px;
+}</pre>
+<p>Here, <code>p</code> is the selector, <code>color</code> and <code>font-size</code> are properties, and their values are <code>blue</code> and <code>20px</code>.</p>
+<div class="card"><strong>Practice:</strong> Change the paragraph color to red and its font size to 25px.</div>`],
+
+["02","CSS Selectors",
+`<h3>What are selectors?</h3>
+<p>Selectors tell CSS which HTML elements you want to style.</p>
+<h3>Element Selector</h3>
+<pre>h1 {
+  color: purple;
+}</pre>
+<h3>Class Selector</h3>
+<pre>.box {
+  background: orange;
+}</pre>
+<p>HTML: <code>&lt;div class="box"&gt;Hello&lt;/div&gt;</code></p>
+<h3>ID Selector</h3>
+<pre>#title {
+  color: green;
+}</pre>
+<p>HTML: <code>&lt;h1 id="title"&gt;Welcome&lt;/h1&gt;</code></p>
+<h3>Universal Selector</h3>
+<pre>* {
+  box-sizing: border-box;
+}</pre>
+<div class="card"><strong>Practice:</strong> Create a class called <code>.student</code> and give it a blue background.</div>`],
+
+["03","Colors and Backgrounds",
+`<h3>CSS Colors</h3>
+<p>CSS lets you add colors to text and backgrounds.</p>
+<pre>h1 {
+  color: red;
+}
+
+body {
+  background-color: lightblue;
+}</pre>
+<h3>HEX Colors</h3>
+<pre>p {
+  color: #35d0ff;
+}</pre>
+<h3>RGB Colors</h3>
+<pre>div {
+  background-color: rgb(20, 40, 65);
+}</pre>
+<h3>Background Images</h3>
+<pre>body {
+  background-image: url("image.jpg");
+  background-size: cover;
+}</pre>
+<div class="card"><strong>Practice:</strong> Make a card with a dark background and white text.</div>`],
+
+["04","Text and Fonts",
+`<h3>Styling Text</h3>
+<p>CSS gives you many properties for controlling text.</p>
+<pre>h1 {
+  font-family: Arial, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+p {
+  line-height: 1.7;
+  letter-spacing: 1px;
+}</pre>
+<h3>Useful Text Properties</h3>
+<ul>
+<li><code>font-family</code> — chooses the font.</li>
+<li><code>font-size</code> — changes text size.</li>
+<li><code>font-weight</code> — controls thickness.</li>
+<li><code>text-align</code> — aligns text.</li>
+<li><code>line-height</code> — controls line spacing.</li>
+<li><code>text-decoration</code> — adds or removes decorations.</li>
+</ul>
+<div class="card"><strong>Practice:</strong> Create a centered heading with a 36px font size.</div>`],
+
+["05","The CSS Box Model",
+`<h3>Understanding the Box Model</h3>
+<p>Every HTML element can be treated like a box. The main parts are <strong>content, padding, border and margin</strong>.</p>
+<pre>.card {
+  width: 300px;
+  padding: 20px;
+  border: 3px solid white;
+  margin: 30px;
+}</pre>
+<p><strong>Padding</strong> creates space inside the element. <strong>Margin</strong> creates space outside the element. <strong>Border</strong> surrounds the padding and content.</p>
+<h3>Box Sizing</h3>
+<pre>* {
+  box-sizing: border-box;
+}</pre>
+<div class="card"><strong>Practice:</strong> Make a box 250px wide with 20px padding and a 2px border.</div>`],
+
+["06","Width, Height and Units",
+`<h3>Sizes in CSS</h3>
+<p>You can control an element's width and height using CSS.</p>
+<pre>.box {
+  width: 300px;
+  height: 200px;
+}</pre>
+<h3>Common Units</h3>
+<ul>
+<li><code>px</code> — pixels.</li>
+<li><code>%</code> — percentage of the parent.</li>
+<li><code>rem</code> — relative to the root font size.</li>
+<li><code>em</code> — relative to the current font size.</li>
+<li><code>vh</code> — percentage of viewport height.</li>
+<li><code>vw</code> — percentage of viewport width.</li>
+</ul>
+<pre>.hero {
+  width: 90%;
+  min-height: 100vh;
+}</pre>
+<div class="card"><strong>Practice:</strong> Create a box that takes 80% of its parent's width.</div>`],
+
+["07","Flexbox",
+`<h3>What is Flexbox?</h3>
+<p>Flexbox is a CSS layout system for arranging elements in a row or column.</p>
+<pre>.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}</pre>
+<h3>Important Flexbox Properties</h3>
+<ul>
+<li><code>display: flex</code></li>
+<li><code>justify-content</code> — controls the main axis.</li>
+<li><code>align-items</code> — controls the cross axis.</li>
+<li><code>gap</code> — adds space between items.</li>
+<li><code>flex-direction</code> — chooses row or column.</li>
+</ul>
+<pre>.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}</pre>
+<div class="card"><strong>Practice:</strong> Put three boxes in one row and center them.</div>`],
+
+["08","CSS Grid",
+`<h3>What is CSS Grid?</h3>
+<p>Grid is useful for creating layouts with rows and columns.</p>
+<pre>.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</pre>
+<p><code>1fr</code> means one fraction of the available space.</p>
+<h3>Responsive Grid</h3>
+<pre>.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}</pre>
+<div class="card"><strong>Practice:</strong> Create a responsive grid that automatically fits cards.</div>`],
+
+["09","Borders, Shadows and Rounded Corners",
+`<h3>Borders</h3>
+<pre>.card {
+  border: 2px solid #35d0ff;
+}</pre>
+<h3>Rounded Corners</h3>
+<pre>.card {
+  border-radius: 15px;
+}</pre>
+<h3>Box Shadows</h3>
+<pre>.card {
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}</pre>
+<p>These properties are commonly used to create modern cards, buttons and panels.</p>
+<div class="card"><strong>Practice:</strong> Design a card with a border, rounded corners and a shadow.</div>`],
+
+["10","Positioning",
+`<h3>CSS Position</h3>
+<p>The <code>position</code> property controls how an element is positioned.</p>
+<pre>.box {
+  position: relative;
+}</pre>
+<p>Common values are <code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code> and <code>sticky</code>.</p>
+<h3>Absolute Positioning</h3>
+<pre>.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}</pre>
+<div class="card"><strong>Practice:</strong> Put a small badge in the top-right corner of a card.</div>`],
+
+["11","Hover Effects and Transitions",
+`<h3>Hover Effects</h3>
+<p>The <code>:hover</code> pseudo-class applies styles when the mouse is over an element.</p>
+<pre>button:hover {
+  background: black;
+  color: white;
+}</pre>
+<h3>Transitions</h3>
+<p>Transitions make changes smooth.</p>
+<pre>button {
+  transition: .3s;
+}
+
+button:hover {
+  transform: translateY(-4px);
+}</pre>
+<div class="card"><strong>Practice:</strong> Make a button move slightly upward when the mouse is over it.</div>`],
+
+["12","Responsive CSS",
+`<h3>What is Responsive Design?</h3>
+<p>Responsive design makes a website work well on phones, tablets and computers.</p>
+<h3>Media Queries</h3>
+<pre>@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+}</pre>
+<p>The CSS inside the media query is applied when the screen width is 600px or smaller.</p>
+<h3>Mobile-first idea</h3>
+<p>Start with a simple layout for small screens, then add styles for larger screens.</p>
+<div class="card"><strong>Practice:</strong> Make a three-column layout become one column on small screens.</div>`],
+
+["13","Pseudo-classes and Pseudo-elements",
+`<h3>Pseudo-classes</h3>
+<p>Pseudo-classes style special states of elements.</p>
+<pre>a:hover {
+  color: cyan;
+}
+
+input:focus {
+  border-color: blue;
+}</pre>
+<h3>Pseudo-elements</h3>
+<p>Pseudo-elements can style a specific part of an element.</p>
+<pre>p::first-letter {
+  font-size: 40px;
+}
+
+.card::before {
+  content: "★";
+}</pre>
+<div class="card"><strong>Practice:</strong> Change the color of a button when it is hovered.</div>`],
+
+["14","CSS Variables",
+`<h3>What are CSS Variables?</h3>
+<p>CSS variables let you store reusable values.</p>
+<pre>:root {
+  --main-color: #35d0ff;
+  --dark: #07111f;
+}
+
+button {
+  background: var(--main-color);
+  color: var(--dark);
+}</pre>
+<p>Variables are especially useful when building themes because you can change one value and update many elements.</p>
+<div class="card"><strong>Practice:</strong> Create a variable called <code>--primary</code> and use it for a button background.</div>`],
+
+["15","CSS Animations",
+`<h3>Creating Animations</h3>
+<p>CSS animations use <code>@keyframes</code> to define changes over time.</p>
+<pre>@keyframes move {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100px);
+  }
+}
+
+.box {
+  animation: move 2s infinite alternate;
+}</pre>
+<p>You can control animation duration, delay, direction, iteration count and timing.</p>
+<div class="card"><strong>Practice:</strong> Create a box that moves from left to right.</div>`]
+]
+
+const cards=document.getElementById("lessonCards");
+const title=document.getElementById("lessonTitle");
+const content=document.getElementById("lessonContent");
+let current=0;
+
+lessons.forEach((l,i)=>{
+ const c=document.createElement("div");
+ c.className="card";
+ c.innerHTML=`<small style="color:var(--accent)">${l[0]}</small><h3>${l[1]}</h3><p>${l[2]}</p><button style="background:var(--accent);border:0;border-radius:8px;padding:9px 12px;font-weight:700" onclick="openLesson(${i})">Open Lesson</button>`;
+ cards.appendChild(c);
+});
+
+function openLesson(i){
+ current=i;
+ title.textContent=lessons[i][0]+" — "+lessons[i][1];
+ content.innerHTML=lessons[i][2];
+ document.querySelector(".lesson-wrap").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function nextLesson(){openLesson((current+1)%lessons.length)}
+document.getElementById("cssInput").addEventListener("input",e=>{
+ document.getElementById("preview").innerHTML='<div class="box">CODEX CSS</div><style>'+e.target.value+'</style>';
+});
+function answer(btn,correct){
+ document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+ document.getElementById("quizResult").textContent=correct?"✅ Correct!":"❌ Not quite. The answer is B. color.";
+}
+let p=0;
+const pct=document.getElementById("percent");
+const timer=setInterval(()=>{p++;pct.textContent=p+"%";if(p>=100){clearInterval(timer);setTimeout(()=>document.getElementById("loading").classList.add("hide"),500)}},48);
+</script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Academy — Learn JavaScript</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18223b;--text:#eef3ff;--muted:#9aa8c7;--accent:#f7df1e;--blue:#5aa9ff;--green:#55d98b;--danger:#ff6b6b}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+header{height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #26304a;background:#0d1427;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:21px}.logo span{color:var(--accent)}
+nav{display:flex;gap:8px}nav button{background:transparent;color:var(--muted);padding:10px 14px;border-radius:9px}nav button.active,nav button:hover{background:var(--panel2);color:#fff}
+.container{width:min(1200px,92%);margin:30px auto}
+.hero{padding:42px 0 28px;display:grid;grid-template-columns:1.4fr .8fr;gap:25px;align-items:center}
+.badge{display:inline-block;background:#282b20;color:var(--accent);padding:7px 11px;border-radius:20px;font-size:13px;margin-bottom:14px}
+h1{font-size:clamp(36px,6vw,64px);line-height:1.02;margin-bottom:15px}h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:650px}
+.cta{margin-top:22px;background:var(--accent);color:#111;padding:13px 19px;border-radius:9px;font-weight:800}
+.code-card{background:#090d18;border:1px solid #28334e;border-radius:16px;overflow:hidden;box-shadow:0 15px 50px #0005}
+.code-top{padding:12px 15px;background:#11182a;color:var(--muted);font-size:13px}.dots{display:inline-flex;gap:5px;margin-right:9px}.dots i{width:9px;height:9px;border-radius:50%;background:#69738d}
+pre{padding:22px;color:#dbe5ff;line-height:1.7;font-size:14px;overflow:auto}.kw{color:#d18cff}.fn{color:#65d8ff}.str{color:#8ee69b}.num{color:#ffad69}
+.section-title{margin:35px 0 18px}.section-title h2{font-size:28px}.section-title p{color:var(--muted);margin-top:6px}
+.progress-box{background:var(--panel);padding:18px;border:1px solid #25304a;border-radius:14px;margin-bottom:25px}
+.progress-row{display:flex;justify-content:space-between;margin-bottom:9px;color:var(--muted);font-size:14px}.bar{height:9px;background:#27314a;border-radius:10px;overflow:hidden}.fill{height:100%;background:var(--accent);width:0%;transition:.3s}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid #25304a;border-radius:14px;padding:20px;transition:.2s}.card:hover{transform:translateY(-3px);border-color:#405174}.card h3{margin:9px 0}.card p{color:var(--muted);line-height:1.5;font-size:14px}.lesson-num{font-size:12px;color:var(--accent);font-weight:700}.card button{margin-top:17px;background:#202b45;color:#fff;padding:9px 12px;border-radius:8px}.card button:hover{background:#30405f}
+.view{display:none}.view.active{display:block}
+.lesson-layout{display:grid;grid-template-columns:260px 1fr;gap:20px}.sidebar{background:var(--panel);border:1px solid #25304a;border-radius:14px;padding:14px;height:max-content;position:sticky;top:88px}.sidebar button{width:100%;text-align:left;background:transparent;color:var(--muted);padding:11px;border-radius:8px;margin-bottom:4px}.sidebar button.active,.sidebar button:hover{background:#202b45;color:#fff}
+.lesson{background:var(--panel);border:1px solid #25304a;border-radius:14px;padding:28px}.lesson h2{font-size:32px;margin-bottom:10px}.lesson .intro{color:var(--muted);line-height:1.7;margin-bottom:20px}.example{background:#090d18;border-radius:10px;margin:20px 0;border:1px solid #27324b}.example pre{min-height:120px}.run-area{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}textarea{width:100%;min-height:210px;background:#080c15;color:#e9efff;border:1px solid #303b58;border-radius:10px;padding:15px;font-family:Consolas,monospace;resize:vertical;outline:none}textarea:focus{border-color:var(--blue)}iframe.output{width:100%;height:210px;background:white;border:1px solid #303b58;border-radius:10px}
+.actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.actions button{padding:11px 16px;border-radius:8px;background:#26334f;color:#fff}.actions .primary{background:var(--accent);color:#111;font-weight:800}
+.quiz{max-width:760px;margin:auto}.question{background:var(--panel);border:1px solid #25304a;border-radius:14px;padding:22px;margin-bottom:15px}.question h3{margin-bottom:15px}.option{display:block;width:100%;text-align:left;padding:12px;margin:8px 0;background:#1b2640;color:#fff;border-radius:8px}.option:hover{background:#2a395b}.option.correct{background:#145d3a}.option.wrong{background:#652d35}
+.result{background:var(--panel);border:1px solid #25304a;padding:24px;border-radius:14px;text-align:center;margin-top:20px}.result strong{font-size:30px;color:var(--accent)}
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.project{background:var(--panel);padding:22px;border-radius:14px;border:1px solid #25304a}.project p{color:var(--muted);line-height:1.6;margin:10px 0}
+.search{width:100%;padding:13px 15px;background:var(--panel);border:1px solid #293550;color:#fff;border-radius:9px;margin-bottom:18px;outline:none}
+footer{text-align:center;padding:40px;color:#697694}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.lesson-layout{grid-template-columns:1fr}.sidebar{position:static}.run-area{grid-template-columns:1fr}.projects{grid-template-columns:1fr}}
+@media(max-width:520px){nav button{padding:8px}.grid{grid-template-columns:1fr}.container{width:94%}.lesson{padding:20px}}
+
+#loadingScreen{
+  position:fixed;inset:0;z-index:9999;background:#050914;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  overflow:hidden;transition:opacity .7s ease,visibility .7s ease;
+}
+#loadingScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-grid{
+  position:absolute;inset:0;opacity:.18;
+  background-image:linear-gradient(#243452 1px,transparent 1px),linear-gradient(90deg,#243452 1px,transparent 1px);
+  background-size:45px 45px;transform:perspective(500px) rotateX(55deg) scale(1.5);
+  animation:gridMove 5s linear infinite;
+}
+@keyframes gridMove{from{transform:perspective(500px) rotateX(55deg) scale(1.5) translateY(0)}to{transform:perspective(500px) rotateX(55deg) scale(1.5) translateY(45px)}}
+.loader-logo{
+  position:relative;font-size:clamp(40px,8vw,78px);font-weight:900;letter-spacing:3px;
+  color:#fff;text-shadow:0 0 20px #5aa9ff66;
+  animation:logoIn 1s ease both;
+}
+.loader-logo span{color:#f7df1e;text-shadow:0 0 20px #f7df1e66}
+.loader-sub{position:relative;margin-top:10px;color:#8ea1c5;letter-spacing:5px;text-transform:uppercase;font-size:12px}
+.loader-line{position:relative;width:min(360px,75%);height:5px;background:#1b2943;border-radius:10px;margin-top:30px;overflow:hidden}
+.loader-progress{height:100%;width:0;background:#f7df1e;box-shadow:0 0 14px #f7df1e;animation:loadBar 6s ease forwards}
+.loader-percent{position:relative;margin-top:12px;color:#f7df1e;font-family:monospace;font-size:14px}
+.loader-terminal{
+  position:relative;margin-top:22px;color:#526587;font:12px Consolas,monospace;
+  min-height:18px;
+}
+.loader-terminal::before{content:"> ";color:#55d98b}
+@keyframes loadBar{to{width:100%}}
+@keyframes logoIn{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+
+<div id="loadingScreen">
+  <div class="loader-grid"></div>
+  <div class="loader-logo">CODEX <span>PROGRAMMER</span></div>
+  <div class="loader-sub">JavaScript Learning Academy</div>
+  <div class="loader-line"><div class="loader-progress"></div></div>
+  <div class="loader-percent" id="loaderPercent">0%</div>
+  <div class="loader-terminal" id="loaderTerminal">Initializing learning environment...</div>
+</div>
+
+<header>
+  <div class="logo">JS<span>Academy</span></div>
+  <nav>
+    <button class="nav active" data-view="home">Home</button>
+    <button class="nav" data-view="lessons">Lessons</button>
+    <button class="nav" data-view="quiz">Quiz</button>
+    <button class="nav" data-view="projects">Projects</button>
+  </nav>
+</header>
+
+<main class="container">
+<section id="home" class="view active">
+  <div class="hero">
+    <div>
+      <div class="badge">⚡ Beginner → Advanced</div>
+      <h1>Learn to code with <span>JavaScript.</span></h1>
+      <p>Learn JavaScript step by step with simple explanations, examples, an interactive code runner, quizzes and practical projects.</p>
+      <button class="cta" onclick="showView('lessons')">Start Learning →</button>
+    </div>
+    <div class="code-card">
+      <div class="code-top"><span class="dots"><i></i><i></i><i></i></span> hello.js</div>
+      <pre><span class="kw">const</span> student = <span class="str">"Coder"</span>;
+
+<span class="fn">console</span>.log(<span class="str">"Hello, "</span> + student);
+
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i &lt;= <span class="num">3</span>; i++) {
+  console.log(i);
+}</pre>
+    </div>
+  </div>
+
+  <div class="progress-box">
+    <div class="progress-row"><span>Your learning progress</span><b id="progressText">0%</b></div>
+    <div class="bar"><div class="fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="section-title"><h2>What you'll learn</h2><p>Build a strong JavaScript foundation.</p></div>
+  <div class="grid">
+    <div class="card"><div>🧱</div><h3>JavaScript Basics</h3><p>Variables, data types, operators and your first programs.</p></div>
+    <div class="card"><div>🔀</div><h3>Logic & Functions</h3><p>Conditions, loops and reusable functions.</p></div>
+    <div class="card"><div>🌐</div><h3>Web Programming</h3><p>Use JavaScript to interact with HTML and build dynamic pages.</p></div>
+  </div>
+</section>
+
+<section id="lessons" class="view">
+  <div class="section-title"><h2>JavaScript Lessons</h2><p>Complete each lesson in order.</p></div>
+  <input id="search" class="search" placeholder="🔎 Search lessons..." oninput="filterLessons()">
+  <div class="grid" id="lessonCards"></div>
+</section>
+
+<section id="learn" class="view">
+  <div class="lesson-layout">
+    <aside class="sidebar" id="lessonSide"></aside>
+    <article class="lesson">
+      <div class="lesson-num" id="lessonNum"></div>
+      <h2 id="lessonTitle"></h2>
+      <p class="intro" id="lessonIntro"></p>
+      <div id="lessonBody"></div>
+      <div class="actions">
+        <button onclick="previousLesson()">← Previous</button>
+        <button class="primary" onclick="completeLesson()">Complete & Continue →</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="quiz" class="view">
+  <div class="section-title"><h2>JavaScript Quiz</h2><p>Test what you've learned.</p></div>
+  <div class="quiz" id="quizBox"></div>
+</section>
+
+<section id="projects" class="view">
+  <div class="section-title"><h2>Practice Projects</h2><p>Use your JavaScript skills to build something.</p></div>
+  <div class="projects">
+    <div class="project"><h3>🧮 Calculator</h3><p>Build a calculator that can add, subtract, multiply and divide numbers.</p><button class="cardBtn" onclick="openLesson(5)">Use Functions</button></div>
+    <div class="project"><h3>🎯 Number Guessing Game</h3><p>Create a game where the computer chooses a number and the player tries to guess it.</p><button class="cardBtn" onclick="openLesson(4)">Use Conditions</button></div>
+    <div class="project"><h3>📝 To-Do List</h3><p>Create tasks, mark them complete and remove them using DOM events.</p><button class="cardBtn" onclick="openLesson(6)">Learn the DOM</button></div>
+    <div class="project"><h3>⏱️ Countdown Timer</h3><p>Build a timer that counts down every second using JavaScript.</p><button class="cardBtn" onclick="openLesson(7)">Learn Events</button></div>
+  </div>
+</section>
+</main>
+<footer>JS Academy • Learn JavaScript by building</footer>
+
+<script>
+
+// CODEX PROGRAMMER loading scene
+(function(){
+  const screen=document.getElementById("loadingScreen");
+  const percent=document.getElementById("loaderPercent");
+  const terminal=document.getElementById("loaderTerminal");
+  const messages=[
+    "Initializing learning environment...",
+    "Loading JavaScript lessons...",
+    "Preparing coding challenges...",
+    "Starting CODEX PROGRAMMER...",
+    "Ready to code!" 
+  ];
+  let start=performance.now();
+  function tick(now){
+    const elapsed=now-start;
+    const p=Math.min(100,Math.floor(elapsed/6000*100));
+    percent.textContent=p+"%";
+    terminal.textContent=messages[Math.min(messages.length-1,Math.floor(p/21))];
+    if(p<100) requestAnimationFrame(tick);
+    else setTimeout(()=>screen.classList.add("hide"),900);
+  }
+  requestAnimationFrame(tick);
+})();
+
+const lessons=[
+ {title:"Introduction to JavaScript",intro:"Understand what JavaScript is, where it runs, and how it makes websites interactive.",body:`<h3>What is JavaScript?</h3><p>JavaScript is a programming language used to add behavior and interactivity to websites. It can run directly in a web browser.</p><div class="example"><pre><span class="fn">console</span>.log(<span class="str">"Hello, JavaScript!"</span>);</pre></div><p>Open the browser developer console and you can see the message printed there.</p>`},
+ {title:"Variables & Data Types",intro:"Learn how to store information using let and const.",body:`<h3>Variables</h3><p>A variable is a named place where a program can store a value.</p><div class="example"><pre><span class="kw">let</span> age = <span class="num">15</span>;
+<span class="kw">const</span> name = <span class="str">"Alex"</span>;</pre></div><p>Common data types include strings, numbers, booleans, arrays and objects.</p>`},
+ {title:"Operators",intro:"Use symbols to calculate values and compare information.",body:`<h3>Operators</h3><p>Arithmetic operators include +, -, *, / and %. Comparison operators include ===, !==, &gt;, &lt;, &gt;= and &lt;=.</p><div class="example"><pre><span class="kw">let</span> total = <span class="num">10</span> + <span class="num">5</span>;
+console.log(total); <span class="str">// 15</span></pre></div>`},
+ {title:"Conditions",intro:"Make your programs choose what to do using if, else if and else.",body:`<h3>Making decisions</h3><div class="example"><pre><span class="kw">let</span> score = <span class="num">80</span>;
+
+<span class="kw">if</span> (score &gt;= <span class="num">50</span>) {
+  console.log(<span class="str">"You passed!"</span>);
+} <span class="kw">else</span> {
+  console.log(<span class="str">"Try again."</span>);
+}</pre></div>`},
+ {title:"Loops",intro:"Repeat code efficiently with for and while loops.",body:`<h3>Repeating code</h3><div class="example"><pre><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i &lt;= <span class="num">5</span>; i++) {
+  console.log(i);
+}</pre></div><p>The loop prints the numbers 1 through 5.</p>`},
+ {title:"Functions",intro:"Create reusable blocks of code that perform a task.",body:`<h3>Functions</h3><div class="example"><pre><span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">"Hello "</span> + name;
+}
+
+console.log(greet(<span class="str">"Sam"</span>));</pre></div><p>Functions can accept parameters and return results.</p>`},
+ {title:"The DOM",intro:"Learn how JavaScript can find and change HTML elements.",body:`<h3>Changing a webpage</h3><div class="example"><pre><span class="kw">const</span> title = document.querySelector(<span class="str">"h1"</span>);
+title.textContent = <span class="str">"My New Title"</span>;</pre></div><p>The DOM lets JavaScript interact with the structure of a webpage.</p>`},
+ {title:"Events",intro:"Respond to clicks, typing and other actions from the user.",body:`<h3>Click events</h3><div class="example"><pre><span class="kw">const</span> button = document.querySelector(<span class="str">"button"</span>);
+
+button.addEventListener(<span class="str">"click"</span>, () =&gt; {
+  console.log(<span class="str">"Button clicked!"</span>);
+});</pre></div>`},
+ {title:"Arrays",intro:"Store multiple values in a single variable.",body:`<h3>Arrays</h3><div class="example"><pre><span class="kw">const</span> fruits = [<span class="str">"Apple"</span>, <span class="str">"Mango"</span>, <span class="str">"Orange"</span>];
+
+console.log(fruits[<span class="num">0</span>]);</pre></div><p>Array indexes start at 0.</p>`},
+ {title:"Objects",intro:"Represent related information using key-value pairs.",body:`<h3>Objects</h3><div class="example"><pre><span class="kw">const</span> student = {
+  name: <span class="str">"Alex"</span>,
+  age: <span class="num">15</span>
+};
+
+console.log(student.name);</pre></div>`}
+];
+
+let current=0;
+let completed=JSON.parse(localStorage.getItem("jsAcademyCompleted")||"[]");
+
+function showView(id){
+ document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+
+function renderLessons(){
+ const box=document.getElementById("lessonCards");
+ box.innerHTML=lessons.map((l,i)=>`<div class="card lesson-card"><div class="lesson-num">LESSON ${i+1}</div><h3>${l.title}</h3><p>${l.intro}</p><button onclick="openLesson(${i})">${completed.includes(i)?"Review":"Start Lesson"} →</button></div>`).join("");
+}
+function filterLessons(){
+ const q=document.getElementById("search").value.toLowerCase();
+ document.querySelectorAll(".lesson-card").forEach((c,i)=>c.style.display=lessons[i].title.toLowerCase().includes(q)||lessons[i].intro.toLowerCase().includes(q)?"block":"none");
+}
+function openLesson(i){current=i;renderLesson();showView("learn")}
+function renderLesson(){
+ const l=lessons[current];
+ document.getElementById("lessonNum").textContent=`LESSON ${current+1} OF ${lessons.length}`;
+ document.getElementById("lessonTitle").textContent=l.title;
+ document.getElementById("lessonIntro").textContent=l.intro;
+ document.getElementById("lessonBody").innerHTML=l.body;
+ document.getElementById("lessonSide").innerHTML=lessons.map((x,i)=>`<button class="${i===current?"active":""}" onclick="openLesson(${i})">${i+1}. ${x.title}</button>`).join("");
+}
+function completeLesson(){
+ if(!completed.includes(current))completed.push(current);
+ localStorage.setItem("jsAcademyCompleted",JSON.stringify(completed));
+ updateProgress();renderLessons();
+ if(current<lessons.length-1){current++;renderLesson()}else{alert("🎉 Congratulations! You completed all the lessons!");showView("quiz")}
+}
+function previousLesson(){if(current>0){current--;renderLesson()}else showView("lessons")}
+function updateProgress(){
+ const p=Math.round(completed.length/lessons.length*100);
+ document.getElementById("progressFill").style.width=p+"%";
+ document.getElementById("progressText").textContent=p+"%";
+}
+const questions=[
+ ["Which keyword creates a variable that can be reassigned?","let",["const","let","fixed","varies"]],
+ ["What does console.log() do?","It prints a value to the console",["It deletes a value","It prints a value to the console","It creates HTML","It closes JavaScript"]],
+ ["Which symbol is used for strict equality?","===",["=","==","===","=>"]],
+ ["What does an array store?","A collection of values",["Only text","A collection of values","Only functions","Only numbers"]],
+ ["Which method listens for an event?","addEventListener()",["listen()","event()","addEventListener()","watch()"]]
+];
+function renderQuiz(){
+ const box=document.getElementById("quizBox");
+ box.innerHTML=questions.map((q,i)=>`<div class="question"><h3>${i+1}. ${q[0]}</h3>${q[2].map(o=>`<button class="option" data-answer="${o}" data-correct="${q[1]}" onclick="answer(this)">${o}</button>`).join("")}</div>`).join("")+`<div class="result" id="quizResult">Answer all questions to see your score.</div>`;
+}
+let answered=0,score=0;
+function answer(btn){
+ if(btn.parentElement.dataset.done)return;
+ btn.parentElement.dataset.done="1";answered++;
+ const correct=btn.dataset.answer===btn.dataset.correct;
+ if(correct){btn.classList.add("correct");score++}else{btn.classList.add("wrong");[...btn.parentElement.querySelectorAll(".option")].find(x=>x.dataset.answer===btn.dataset.correct)?.classList.add("correct")}
+ if(answered===questions.length){
+   document.getElementById("quizResult").innerHTML=`Your score: <strong>${score}/${questions.length}</strong><br><br>${score>=4?"🔥 Excellent work!":"💪 Keep practicing and try again!"}`;
+ }
+}
+renderLessons();renderLesson();renderQuiz();updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex Programmer - Learn HTML</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#172033;line-height:1.6}
+header{background:#111827;color:white;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:800;color:#38bdf8}
+nav a{color:white;text-decoration:none;margin-left:20px;font-weight:600}
+.hero{padding:70px 6%;background:linear-gradient(135deg,#0f172a,#164e63);color:white;text-align:center}
+.hero h1{font-size:clamp(38px,6vw,68px);margin-bottom:15px}
+.hero p{max-width:700px;margin:auto;font-size:18px;color:#dbeafe}
+.btn{display:inline-block;margin-top:25px;padding:13px 22px;background:#38bdf8;color:#062033;border:0;border-radius:10px;font-weight:800;text-decoration:none;cursor:pointer}
+.container{width:min(1100px,92%);margin:45px auto}
+.section-title{text-align:center;margin-bottom:30px}
+.section-title h2{font-size:34px}
+.progress-wrap{background:white;padding:20px;border-radius:15px;box-shadow:0 8px 25px #00000010;margin-bottom:35px}
+.progress-bar{height:13px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:10px}
+.progress{height:100%;width:0;background:#0ea5e9;transition:.3s}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:white;padding:24px;border-radius:16px;box-shadow:0 8px 25px #00000010;border:1px solid #e5e7eb}
+.card h3{margin-bottom:8px;color:#0369a1}
+.card p{color:#526071}
+.card button{margin-top:15px;width:100%;padding:11px;border:0;border-radius:9px;background:#0f172a;color:white;cursor:pointer;font-weight:bold}
+.lesson{display:none;background:white;padding:30px;border-radius:18px;box-shadow:0 8px 30px #00000012;margin-top:30px}
+.lesson.active{display:block}
+.lesson h2{color:#0369a1;margin-bottom:12px}
+pre{background:#0b1120;color:#dbeafe;padding:18px;border-radius:12px;overflow:auto;margin:18px 0}
+.example{background:#eff6ff;border-left:5px solid #0ea5e9;padding:15px;border-radius:8px;margin:15px 0}
+.quiz{margin-top:25px;padding:22px;background:#f8fafc;border-radius:12px}
+.quiz label{display:block;margin:10px 0;cursor:pointer}
+.feedback{font-weight:bold;margin-top:12px}
+footer{text-align:center;background:#111827;color:white;padding:30px;margin-top:50px}
+
+#loadingScreen{
+  position:fixed;inset:0;background:#050b14;color:#38bdf8;
+  display:flex;align-items:center;justify-content:center;z-index:9999;
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#loadingScreen.hide{opacity:0;visibility:hidden}
+.loader-box{text-align:center;width:min(90%,520px)}
+.loader-logo{font-size:clamp(32px,7vw,62px);font-weight:900;letter-spacing:3px;text-shadow:0 0 20px #38bdf8}
+.loader-sub{color:#dbeafe;margin-top:10px;font-size:16px}
+.code-terminal{
+  margin:28px auto 18px;background:#020617;border:1px solid #164e63;
+  border-radius:12px;text-align:left;padding:18px;min-height:145px;
+  box-shadow:0 0 30px #0ea5e933;font-family:Consolas,monospace;
+  color:#a5f3fc;overflow:hidden
+}
+.terminal-line{opacity:0;animation:appear .5s forwards}
+.terminal-line:nth-child(1){animation-delay:.4s}
+.terminal-line:nth-child(2){animation-delay:1s}
+.terminal-line:nth-child(3){animation-delay:1.6s}
+.terminal-line:nth-child(4){animation-delay:2.2s}
+.loading-bar{height:7px;background:#172033;border-radius:20px;overflow:hidden}
+.loading-fill{height:100%;width:0;background:#38bdf8;box-shadow:0 0 12px #38bdf8;animation:load 3.8s linear forwards}
+.loading-text{margin-top:12px;color:#94a3b8;font-size:13px}
+@keyframes load{to{width:100%}}
+@keyframes appear{to{opacity:1}}
+@keyframes blink{50%{opacity:0}}
+
+@media(max-width:600px){nav{display:none}.hero{padding:50px 5%}.container{width:94%}}
+</style>
+</head>
+<body>
+
+<div id="loadingScreen">
+  <div class="loader-box">
+    <div class="loader-logo">CODEX PROGRAMMER</div>
+    <div class="loader-sub">HTML Learning Environment</div>
+    <div class="code-terminal">
+      <div class="terminal-line">&gt; Initializing Codex Programmer...</div>
+      <div class="terminal-line">&gt; Loading HTML lessons...</div>
+      <div class="terminal-line">&gt; Preparing student dashboard...</div>
+      <div class="terminal-line">&gt; System ready<span style="animation:blink 1s infinite">_</span></div>
+    </div>
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+    <div class="loading-text">Launching your learning experience...</div>
+  </div>
+</div>
+
+
+<header>
+  <div class="logo">CODEX PROGRAMMER</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#quiz">Quiz</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>Learn HTML</h1>
+  <p>A beginner-friendly website that teaches students how to build web pages using HTML, step by step.</p>
+  <a class="btn" href="#lessons">Start Learning</a>
+</section>
+
+<main class="container">
+  <div class="progress-wrap">
+    <strong>Your learning progress: <span id="progressText">0%</span></strong>
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+  </div>
+
+  <section id="lessons">
+    <div class="section-title">
+      <h2>HTML Lessons</h2>
+      <p>Complete each lesson in order.</p>
+    </div>
+
+    <div class="lessons">
+      <div class="card"><h3>01. What is HTML?</h3><p>Understand HTML and how websites use it.</p><button onclick="openLesson(1)">Start Lesson</button></div>
+      <div class="card"><h3>02. HTML Structure</h3><p>Learn the basic structure of an HTML document.</p><button onclick="openLesson(2)">Start Lesson</button></div>
+      <div class="card"><h3>03. Headings & Paragraphs</h3><p>Learn how to organize text.</p><button onclick="openLesson(3)">Start Lesson</button></div>
+      <div class="card"><h3>04. Links & Images</h3><p>Add links and images to your pages.</p><button onclick="openLesson(4)">Start Lesson</button></div>
+      <div class="card"><h3>05. Lists</h3><p>Create ordered and unordered lists.</p><button onclick="openLesson(5)">Start Lesson</button></div>
+      <div class="card"><h3>06. Tables</h3><p>Display information in rows and columns.</p><button onclick="openLesson(6)">Start Lesson</button></div>
+      <div class="card"><h3>07. Forms</h3><p>Build forms for collecting information.</p><button onclick="openLesson(7)">Start Lesson</button></div>
+      <div class="card"><h3>08. Semantic HTML</h3><p>Use meaningful HTML elements.</p><button onclick="openLesson(8)">Start Lesson</button></div>
+    </div>
+
+    <div id="lessonArea" class="lesson"></div>
+  </section>
+
+  <section id="quiz" style="margin-top:50px">
+    <div class="section-title">
+      <h2>HTML Quiz</h2>
+      <p>Test what you have learned.</p>
+    </div>
+    <div class="quiz">
+      <p><strong>1. What does HTML stand for?</strong></p>
+      <label><input type="radio" name="q1" value="a"> Hyper Text Markup Language</label>
+      <label><input type="radio" name="q1" value="b"> High Tech Modern Language</label>
+      <label><input type="radio" name="q1" value="c"> Hyperlink Text Machine Language</label>
+
+      <p style="margin-top:20px"><strong>2. Which tag creates a paragraph?</strong></p>
+      <label><input type="radio" name="q2" value="a"> &lt;h1&gt;</label>
+      <label><input type="radio" name="q2" value="b"> &lt;p&gt;</label>
+      <label><input type="radio" name="q2" value="c"> &lt;img&gt;</label>
+
+      <p style="margin-top:20px"><strong>3. Which tag is used for the largest heading?</strong></p>
+      <label><input type="radio" name="q3" value="a"> &lt;h6&gt;</label>
+      <label><input type="radio" name="q3" value="b"> &lt;head&gt;</label>
+      <label><input type="radio" name="q3" value="c"> &lt;h1&gt;</label>
+
+      <button class="btn" onclick="checkQuiz()">Submit Quiz</button>
+      <div id="result" class="feedback"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>CODEX PROGRAMMER &copy; 2026 — Learn HTML, one lesson at a time.</p>
+</footer>
+
+<script>
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loadingScreen").classList.add("hide");
+  }, 4000);
+});
+
+const lessons = {
+1:{title:"What is HTML?",text:"HTML means HyperText Markup Language. It is used to create the structure and content of web pages. HTML uses elements such as headings, paragraphs, links and images.",code:`<!DOCTYPE html>
+<html>
+<head>
+  <title>My First Page</title>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <p>Welcome to HTML.</p>
+</body>
+</html>`},
+2:{title:"HTML Structure",text:"A normal HTML page contains a doctype declaration, an html element, a head section and a body section. The visible content normally goes inside body.",code:`<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website</title>
+</head>
+<body>
+  <h1>My Website</h1>
+</body>
+</html>`},
+3:{title:"Headings & Paragraphs",text:"Use h1 through h6 for headings. Use the p element for paragraphs. h1 is normally the main heading and h6 is the smallest heading.",code:`<h1>Main Heading</h1>
+<h2>Section Heading</h2>
+<p>This is a paragraph of text.</p>`},
+4:{title:"Links & Images",text:"The a element creates links. The img element displays an image. The src attribute tells the browser where the image is located, while alt describes it.",code:`<a href="https://example.com">Visit Website</a>
+
+<img src="picture.jpg" alt="A description of the picture">`},
+5:{title:"Lists",text:"HTML supports unordered lists using ul and ordered lists using ol. Each item is written using li.",code:`<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ul>
+
+<ol>
+  <li>Learn HTML</li>
+  <li>Practice</li>
+</ol>`},
+6:{title:"Tables",text:"Tables organize information into rows and columns. Use table, tr for a row, th for a heading cell and td for a normal cell.",code:`<table>
+  <tr>
+    <th>Name</th>
+    <th>Score</th>
+  </tr>
+  <tr>
+    <td>Alex</td>
+    <td>90</td>
+  </tr>
+</table>`},
+7:{title:"Forms",text:"Forms allow users to enter information. Common form elements include input, label, textarea, select and button.",code:`<form>
+  <label for="name">Name:</label>
+  <input id="name" type="text">
+
+  <button type="submit">Send</button>
+</form>`},
+8:{title:"Semantic HTML",text:"Semantic elements describe the purpose of content. Examples include header, nav, main, section, article and footer. They make pages easier to understand and maintain.",code:`<header>Website Header</header>
+<nav>Navigation</nav>
+<main>
+  <section>
+    <h1>Welcome</h1>
+    <p>Page content goes here.</p>
+  </section>
+</main>
+<footer>Website Footer</footer>`}
+};
+
+let completed = JSON.parse(localStorage.getItem("htmlLessons") || "[]");
+
+function updateProgress(){
+  const percent=Math.round((completed.length/8)*100);
+  document.getElementById("progress").style.width=percent+"%";
+  document.getElementById("progressText").textContent=percent+"%";
+}
+function openLesson(id){
+  const l=lessons[id];
+  const area=document.getElementById("lessonArea");
+  area.classList.add("active");
+  area.innerHTML=`
+    <h2>${id}. ${l.title}</h2>
+    <p>${l.text}</p>
+    <div class="example"><strong>Example:</strong></div>
+    <pre>${escapeHtml(l.code)}</pre>
+    <button class="btn" onclick="completeLesson(${id})">Mark Lesson Complete</button>
+  `;
+  area.scrollIntoView({behavior:"smooth"});
+}
+function completeLesson(id){
+  if(!completed.includes(id)) completed.push(id);
+  localStorage.setItem("htmlLessons",JSON.stringify(completed));
+  updateProgress();
+  alert("Lesson completed! Your progress has been saved.");
+}
+function escapeHtml(str){
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function checkQuiz(){
+  let score=0;
+  if(document.querySelector('input[name="q1"]:checked')?.value==="a") score++;
+  if(document.querySelector('input[name="q2"]:checked')?.value==="b") score++;
+  if(document.querySelector('input[name="q3"]:checked')?.value==="c") score++;
+  document.getElementById("result").textContent=`You scored ${score}/3. ${score===3?"Excellent work!":"Keep studying and try again!"}`;
+}
+updateProgress();
+</script>
+</body>
+</html>
